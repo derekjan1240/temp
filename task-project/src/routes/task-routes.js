@@ -3,18 +3,42 @@ const Task = require('../models/task-model');
 const auth = require('../middleware/auth');
 
 router.get('/', auth, async (req, res)=>{
-    // list all
+    const match = {};
+    const sort = {};
+
+    if(req.query.completed){
+        // true & false
+        match.completed =  req.query.completed === "true";
+    }
+
+    if(req.query.sortBy){
+        // ?sortBy=insert_date:desc
+        const parts = req.query.sortBy.split(':');
+        sort[parts[0]] = parts[1] === 'desc' ? -1 : 1;
+    }
+
     try{
+        await req.user.populate({
+            path: 'tasks',
+            // match:{
+            //     completed: match.completed
+            // },
+            options:{
+                limit: parseInt(req.query.limit),
+                skip: parseInt(req.query.skip),
+                sort
+            }
+        }).execPopulate();
 
-        await req.user.populate('tasks').execPopulate();
-
-        console.log('> List all tasks: ', req.user.tasks);
+        console.log(`> List completed(${req.query.completed}) tasks: `, req.user.tasks);
         res.status(201).send(req.user.tasks);
         
     }catch(err){
         console.log(err);
         res.status(500).send(err);
     }
+
+    
 });
 
 router.get('/:id', auth, async (req, res)=>{

@@ -4,15 +4,14 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const hbs = require('hbs');
 const keys = require('../config/keys.js');
-// const fs = require('fs');
 const port = process.env.port || 3000;
 
 // Define paths for Express config
-const publicDirPath = path.join(__dirname, '../public');
-const viewPath = path.join(__dirname, '../templates');
-const partialsPath = path.join(__dirname, '../templates/partials');
-const modelsPath = path.join(__dirname, '../models');
-const routesPath = path.join(__dirname, '../routes');
+const publicDirPath = path.join(__dirname, './public');
+const viewPath = path.join(__dirname, './templates');
+const partialsPath = path.join(__dirname, './templates/partials');
+const modelsPath = path.join(__dirname, './models');
+const routesPath = path.join(__dirname, './routes');
 
 // Model
 const User = require( modelsPath + '/user-model');
@@ -53,38 +52,44 @@ hbs.registerPartials(partialsPath);
 app.use('/users', userRoutes);
 app.use('/tasks', taskRoutes);
 
-// Test
-// const private_key = fs.readFileSync(publicDirPath + '/rs256-test/private.key', 'utf8');
-// const public_key = fs.readFileSync(publicDirPath + '/rs256-test/public.pem', 'utf8');
-
-
 app.get('/', (req, res)=>{
     res.send('ok')
 });
-
 
 app.listen(port, ()=>{
     console.log('listening onport 3000!')
 });
 
-const jwt = require('jsonwebtoken');
 
-const fun = async ()=>{
+// Test
+// const private_key = fs.readFileSync(publicDirPath + '/rs256-test/private.key', 'utf8');
+// const public_key = fs.readFileSync(publicDirPath + '/rs256-test/public.pem', 'utf8');
 
-    // const token = await jwt.sign({
-    //     "_id": "test123",
-    //     "password": "00001234"
-    // }, private_key, {algorithm:'RS256'});
+// const fun = async ()=>{
 
-    const token = await jwt.sign({
-            "_id": "test123",
-            "password": "00001234"
-        }, 'thisiskey')
+//     // const token = await jwt.sign({
+//     //     "_id": "test123",
+//     //     "password": "00001234"
+//     // }, private_key, {algorithm:'RS256'});
 
-    console.log("token:", token);
+//     const token = await jwt.sign({
+//             "_id": "test123",
+//             "password": "00001234"
+//         }, 'thisiskey')
 
-    const data = jwt.verify(token, 'thisiskey',{expiresIn: '12h'});
-    console.log(data);
-}
+//     console.log("token:", token);
 
-// fun();
+//     const data = jwt.verify(token, 'thisissecret',{expiresIn: '12h'});
+//     console.log(data);
+// }
+
+// const pet = {
+//     name: "Lucky"
+// }
+
+// pet.toJSON = function(){
+//     console.log('trigger!');
+//     return pet;
+// }
+
+// console.log(JSON.stringify(pet));

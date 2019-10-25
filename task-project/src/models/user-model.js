@@ -40,7 +40,10 @@ const userSchema = new Schema({
             type: String,
             require: true
         }
-    }]
+    }],
+    avatar:{
+        type: Buffer
+    }
 }, {
     timestamps: {createdAt: 'insert_date', updatedAt: 'update_date'}
 });
@@ -59,6 +62,7 @@ userSchema.methods.toJSON = function(){
 
     delete userObject.token;
     delete userObject.password;
+    delete userObject.avatar;
     delete userObject.insert_date;
     delete userObject.update_date;
 

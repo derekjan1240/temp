@@ -52,6 +52,11 @@ hbs.registerPartials(partialsPath);
 app.use('/users', userRoutes);
 app.use('/tasks', taskRoutes);
 
+// Erro Middleware
+// const errorMiddleware = (req, res, next) => {
+//     throw new Error('');
+// }
+
 app.get('/', (req, res)=>{
     res.send('ok')
 });

@@ -1,4 +1,7 @@
 /node_modules
 /object-es6
 /task-project/config/keys.js
+/task-project/node-course-images
 .vscode
+
+/task-project/src/routes../

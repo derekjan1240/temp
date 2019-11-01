@@ -52,11 +52,6 @@ hbs.registerPartials(partialsPath);
 app.use('/users', userRoutes);
 app.use('/tasks', taskRoutes);
 
-// Erro Middleware
-// const errorMiddleware = (req, res, next) => {
-//     throw new Error('');
-// }
-
 app.get('/', (req, res)=>{
     res.send('ok')
 });
@@ -67,27 +62,6 @@ app.listen(port, ()=>{
 
 
 // Test
-// const private_key = fs.readFileSync(publicDirPath + '/rs256-test/private.key', 'utf8');
-// const public_key = fs.readFileSync(publicDirPath + '/rs256-test/public.pem', 'utf8');
-
-// const fun = async ()=>{
-
-//     // const token = await jwt.sign({
-//     //     "_id": "test123",
-//     //     "password": "00001234"
-//     // }, private_key, {algorithm:'RS256'});
-
-//     const token = await jwt.sign({
-//             "_id": "test123",
-//             "password": "00001234"
-//         }, 'thisiskey')
-
-//     console.log("token:", token);
-
-//     const data = jwt.verify(token, 'thisissecret',{expiresIn: '12h'});
-//     console.log(data);
-// }
-
 // const pet = {
 //     name: "Lucky"
 // }

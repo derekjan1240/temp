@@ -3,6 +3,7 @@ const User = require('../models/user-model');
 const auth = require('../middleware/auth');
 const multer  = require('multer');
 const sharp = require('sharp');
+const { sendWelcomeEmail, sendCancelationEmail } = require('../emails/account');
 
 const upload = multer({
     limits:{
@@ -53,7 +54,8 @@ router.post('/', async (req, res)=>{
     // create one
     const newUser = new User(req.body);
     try{
-        // await newUser.save();
+        await newUser.save();
+        sendWelcomeEmail(newUser.email, newUser.name);
         const token = await newUser.genrateAuthToken();
         console.log('> Created new user: ', newUser, token);
         res.status(201).send({newUser, token});
@@ -93,7 +95,8 @@ router.delete('/me', auth, async (req, res)=>{
     try{
         console.log('> Delete user: ', req.user);
         await req.user.remove();
-        
+        sendCancelationEmail(req.user.email, req.user.name);
+
         res.status(200).send(req.user);
         
     }catch(err){

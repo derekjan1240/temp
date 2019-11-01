@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
+const Task = require('../models/task-model');
 const bcrypt = require('bcryptjs');
 const validator = require('validator');
 const jwt = require('jsonwebtoken');
-const Task = require('../models/task-model');
+const jwtKey = require('../../config/keys').jwtKey;
 
 const Schema = mongoose.Schema;
 
@@ -73,7 +74,7 @@ userSchema.methods.genrateAuthToken = async function(){
     const user = this;
     const token = jwt.sign({
         "_id": user._id.toString()
-    }, "thisissecret");
+    }, jwtKey);
 
     user.tokens = user.tokens.concat({token});
     await user.save();

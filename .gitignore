@@ -3,5 +3,5 @@
 /task-project/config/keys.js
 /task-project/node-course-images
 .vscode
-
+*.env
 /task-project/src/routes../

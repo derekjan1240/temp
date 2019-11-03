@@ -3,8 +3,6 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const path = require('path');
 const hbs = require('hbs');
-const keys = require('../config/keys.js');
-const port = process.env.port || 3000;
 
 // Define paths for Express config
 const publicDirPath = path.join(__dirname, './public');
@@ -16,9 +14,8 @@ const routesPath = path.join(__dirname, './routes');
 // Model
 const User = require( modelsPath + '/user-model');
 const Task = require( modelsPath + '/task-model');
-
 // DB connect 
-mongoose.connect(keys.mongodb,{
+mongoose.connect(process.env.MONGODB_URL,{
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false,
@@ -56,10 +53,7 @@ app.get('/', (req, res)=>{
     res.send('ok')
 });
 
-app.listen(port, ()=>{
-    console.log('listening onport 3000!')
-});
-
+module.exports = app;
 
 // Test
 // const pet = {

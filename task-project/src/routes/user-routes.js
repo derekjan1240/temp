@@ -57,8 +57,8 @@ router.post('/', async (req, res)=>{
         await newUser.save();
         sendWelcomeEmail(newUser.email, newUser.name);
         const token = await newUser.genrateAuthToken();
-        console.log('> Created new user: ', newUser, token);
-        res.status(201).send({newUser, token});
+        console.log('> Created new user: ', newUser);
+        res.status(201).send({newUser});
     }catch(err){
         console.log(err);
         res.status(400).send(err);

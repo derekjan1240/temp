@@ -58,7 +58,7 @@ router.post('/', async (req, res)=>{
         sendWelcomeEmail(newUser.email, newUser.name);
         const token = await newUser.genrateAuthToken();
         console.log('> Created new user: ', newUser);
-        res.status(201).send({newUser});
+        res.status(201).send({newUser, token});
     }catch(err){
         console.log(err);
         res.status(400).send(err);
@@ -148,7 +148,7 @@ router.post('/logoutAll', auth, async (req, res)=>{
 
 // User Avatar 
 
-router.post('/me/avater',  auth, upload.single('avater'), async (req, res)=>{
+router.post('/me/avatar',  auth, upload.single('avatar'), async (req, res)=>{
     if(!req.file){
         throw new Error('No file!')
     }

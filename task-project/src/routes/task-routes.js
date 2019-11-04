@@ -31,7 +31,7 @@ router.get('/', auth, async (req, res)=>{
         }).execPopulate();
 
         console.log(`> List completed(${req.query.completed}) tasks: `, req.user.tasks);
-        res.status(201).send(req.user.tasks);
+        res.status(200).send(req.user.tasks);
         
     }catch(err){
         console.log(err);
@@ -113,8 +113,7 @@ router.patch('/:id', auth, async (req, res)=>{
 router.delete('/:id', auth ,async (req, res)=>{
     // Delete one
     try{
-        const taskDeleted = Task.findOne({_id: req.params.id, owner: req.user._id})
-
+        const taskDeleted = await Task.findOne({_id: req.params.id, owner: req.user._id})
         if(taskDeleted){
             console.log('> Delete task: ', taskDeleted);
             res.status(200).send(taskDeleted);
@@ -122,7 +121,7 @@ router.delete('/:id', auth ,async (req, res)=>{
             res.status(404).send();
         }
     }catch(err){
-        console.log(err);
+        // console.log(err);
         res.status(500).send(err);
     }
 });

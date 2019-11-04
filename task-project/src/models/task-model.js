@@ -26,8 +26,6 @@ const taskSchema = new Schema({
 // Middleware
 taskSchema.pre('save', async function(next){
     const user = this;
-    console.log('Task Saving Middleware');
-
     next();
 });
 

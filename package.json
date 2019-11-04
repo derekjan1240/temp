@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "env-cmd -f ./task-project/config/dev.env nodemon ./task-project/src/index.js",
-    "test": "env-cmd -f ./task-project/config/test.env jest --watch"
+    "test": "env-cmd -f ./task-project/config/test.env jest --watch --runInBand"
   },
   "jest": {
     "testEnvironment": "node"
